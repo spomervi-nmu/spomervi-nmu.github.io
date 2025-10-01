@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="A small pixel art display!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Modify The Author Tag! -->
+    <meta name="author" content="your-name-here">
+    <title> Your Title Here! </title>
+
+    <style>
+        table {
+
+        }
+
+        tr {
+
+        }
+
+        td {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* 
+         *  When a cell is clicked, it will toggle through "color1", "color2", "color3", ... up to color 6! 
+         *  But be aware! color1 is the default color!
+         */
+        .color1 {
+            background-color:grey;
+        }
+
+        .color2 {
+            background-color:blue;
+
+        }
+
+        .color3 {
+            background-color:green;
+        }
+
+        
+        .color4 {
+            background-color:black;
+        }
+
+
+        .color5 {
+            background-color:orange;
+        }
+
+        .color6 {
+            background-color:red;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+    <table>
+
+        <tr>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+        </tr>
+        <tr>
+            <td class="color4"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color4"></td>
+        </tr>
+        <tr>
+            <td class="color4"></td>
+            <td class="color2"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color2"></td>
+            <td class="color4"></td>
+        </tr>
+        <tr>
+            <td class="color4"></td>
+            <td class="color2"></td>
+            <td class="color6"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="color6"></td>
+            <td class="color2"></td>
+            <td class="color4"></td>
+        </tr>
+        <tr>
+            <td class="color4"></td>
+            <td class="color2"></td>
+            <td class="color6"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="color6"></td>
+            <td class="color2"></td>
+            <td class="color4"></td>
+        </tr>
+        <tr>
+            <td class="color4"></td>
+            <td class="color2"></td>
+            <td class="color6"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="color6"></td>
+            <td class="color2"></td>
+            <td class="color4"></td>
+        </tr>
+        <tr>
+            <td class="color4"></td>
+            <td class="color2"></td>
+            <td class="color6"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="color6"></td>
+            <td class="color2"></td>
+            <td class="color4"></td>
+        </tr>
+        <tr>
+            <td class="color4"></td>
+            <td class="color2"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color6"></td>
+            <td class="color2"></td>
+            <td class="color4"></td>
+        </tr>
+        <tr>
+            <td class="color4"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color2"></td>
+            <td class="color4"></td>
+        </tr> 
+        <tr>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+            <td class="color4"></td>
+        </tr>
+
+
+
+    </table>
+
+   
+
+    <!-- Do not touch thie stuff below! --> 
+    <!-- A bit of Javascript! We will learn this later! -->
+    <script>
+        // Select all the td elements
+        const tdElements = document.querySelectorAll('td');
+
+        tdElements.forEach((td) => {
+            if(td.classList.length === 0){
+                td.classList.add('color1');
+            }
+        });
+    
+
+        // Loop through all td elements and add click event listeners
+        tdElements.forEach((td) => {
+            td.addEventListener('click', () => {
+                // If the td has class 'color1', change it to 'color2'
+                if (td.classList.contains('color1')) {
+                    td.classList.remove('color1');
+                    td.classList.add('color2');
+                }
+                // ...otherwise, if the td has class 'color2', change it to 'color3'
+                else if (td.classList.contains('color2')) {
+                    td.classList.remove('color2');
+                    td.classList.add('color3');
+                }
+                // color3 -> color4
+                else if (td.classList.contains('color3')) {
+                    td.classList.remove('color3');
+                    td.classList.add('color4');
+                }
+                // color4 -> color5
+                else if (td.classList.contains('color4')) {
+                    td.classList.remove('color4');
+                    td.classList.add('color5');
+                }
+                // color5 -> color6
+                else if (td.classList.contains('color5')) {
+                    td.classList.remove('color5');
+                    td.classList.add('color6');
+                }
+                // color6 -> color1
+                else if (td.classList.contains('color6')) {
+                    td.classList.remove('color6');
+                    td.classList.add('color1');
+                }
+                
+                
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
