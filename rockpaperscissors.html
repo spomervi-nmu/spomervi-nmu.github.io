@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Scott's Cool Games </title>
+	<meta charset="utf-8">
+	<meta name="author" content="Professor Scott Pomerville">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 	
+	<link rel="icon" type="image/x-icon" href="./images/favicon.png">
+
+	<!-- I got the below stylesheets from https://www.w3schools.com/w3css/w3css_templates.asp -->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- I made this stylesheet! -->
+	<link rel="stylesheet" href="./mystyle.css">
+
+<style>
+	td{
+		background-color: lightgrey;
+		width:120px;
+		height:120px;
+		font-size:100px;
+		font-weight:bold;
+		text-align:center;
+	}
+
+	.easteregg{
+		position: fixed;
+		bottom: 0;
+		right: 0;
+	}
+
+	.hide{
+		visibility:hidden;
+	}
+
+	.smol{
+		width:15%;
+	}
+</style>
+
+</head>
+
+<body>	
+    <div class="mainbar">
+        <a class="boxed-link" href="./index.html">Home</a>
+        <a class="boxed-link" href="./tictactoe.html">Tic Tac Toe</a>
+        <a class="boxed-link" href="./rockpaperscissors.html">Rock, Paper, Scisssors</a>
+        <a class="boxed-link" href="./commander.html">Commander Decks</a>
+    </div>
+	<h1 class="centered">The Rock Paper Scissors 9000!</h1>
+	<h2 class="centered">RPS wins: <span id="losses">0</span> Your Wins: 0</h2>
+	<h3 class="centered" id="game">The RPS9000 is ready to rumble!</h3>
+
+	<div class="centered">
+	<button onclick="throwRock()">Throw Rock!</button>
+	<button onclick="throwPaper()">Throw Paper!</button>
+	<button onclick="throwScissors()">Throw Scissors!</button>
+
+	<p id="easteregg" class="easteregg hide">*the rps9000 may be cheating</p>
+	</div>
+<script>
+	// | || || |_
+	let loss = 0;
+
+	function dispLoss(){
+		loss = loss + 1;
+		document.getElementById("losses").innerHTML = loss;
+		if(loss == 5){
+			document.getElementById("easteregg").classList.remove("hide");
+		}
+	}
+
+	let rock= "<img class='smol' src='./images/rock.jpg'>";
+	let paper= "<img class='smol' src='./images/paper.jpg'>";
+	let scissors= "<img class='smol' src='./images/scissors.jpg'>";
+
+	function throwRock(){
+		document.getElementById("game").innerHTML="You threw " +rock+ " the RPS9000 threw " +paper +"! You lose!";
+		dispLoss();
+	}
+
+	function throwPaper(){
+		document.getElementById("game").innerHTML="You threw " +paper +", the RPS9000 threw " + scissors + "! You lose!";
+		dispLoss();
+	}
+
+	function throwScissors(){
+		document.getElementById("game").innerHTML="You threw " + scissors + ", the RPS9000 threw " + rock + "! You lose!";
+		dispLoss();
+	}
+
+
+</script>
+</body>
+</html>

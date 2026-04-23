@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Scott's Cool Games </title>
+	<meta charset="utf-8">
+	<meta name="author" content="Professor Scott Pomerville">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 	
+	<link rel="icon" type="image/x-icon" href="./images/favicon.png">
+
+	<!-- I got the below stylesheets from https://www.w3schools.com/w3css/w3css_templates.asp -->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- I made this stylesheet! -->
+	<link rel="stylesheet" href="./mystyle.css">
+
+<style>
+	td{
+		background-color: lightgrey;
+		width:120px;
+		height:120px;
+		font-size:100px;
+		font-weight:bold;
+		text-align:center;
+	}
+</style>
+
+</head>
+
+<body>	
+    <div class="mainbar">
+        <a class="boxed-link" href="./index.html">Home</a>
+        <a class="boxed-link" href="./tictactoe.html">Tic Tac Toe</a>
+        <a class="boxed-link" href="./rockpaperscissors.html">Rock, Paper, Scisssors</a>
+        <a class="boxed-link" href="./commander.html">Commander Decks</a>
+    </div>
+	<h1 class="centered">Tic Tac Toe!</h1>
+	<h3 class="centered"> Current Player: <span id="cturn"></span></h3>
+	<table id="board" class="autocenter"></table>
+
+<script>
+// Assume X goes first...
+let curPlayer = "X";
+let winnerFound = false;
+// Half the time, switch it to "O"
+if (0.5 > Math.random()){
+	curPlayer="O";
+}
+// Display the First player
+document.getElementById("cturn").innerText=curPlayer;
+
+// make the tic tac toe board:
+// assume tictactoe has the following layout:
+// 0 | 1 | 2
+//-----------
+// 3 | 4 | 5
+//-----------
+// 6 | 7 | 8 
+
+//make the board
+boardContent = "";
+let row = 0;
+while(row < 3){
+	let col = 0;
+	boardContent = boardContent + "<tr>";
+	while(col < 3){
+		boardContent = boardContent + "<td></td>";
+		col = col + 1;
+	}
+	boardContent = boardContent + "</tr>";
+	row = row + 1;
+}
+document.getElementById("board").innerHTML=boardContent;
+
+//give everything an ID that is class0 to class8
+allTD = document.querySelectorAll("td");
+let i = 0;
+while( i < allTD.length ){
+	allTD[i].addEventListener("click", clicked);
+	i = i + 1;
+}
+
+
+// A function for when a td is clicked
+function clicked(){
+	let target = event.target;
+
+	//check if the cell clicked was blank...
+	if(target.innerHTML == ""){
+		//if so, play your thing
+		target.innerHTML = curPlayer;
+		//swap the current player
+		if(curPlayer == "X"){
+			curPlayer = "O";
+		}
+		else{
+			curPlayer = "X";
+		}
+		// show the current player's turn
+		document.getElementById("cturn") = curPlayer;
+		return;
+	}
+
+
+}
+
+</script>
+</body>
+</html>

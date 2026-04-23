@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Scott's Cool Games </title>
+	<meta charset="utf-8">
+	<meta name="author" content="Professor Scott Pomerville">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 	
+	<link rel="icon" type="image/x-icon" href="./images/favicon.png">
+
+	<!-- I got the below stylesheets from https://www.w3schools.com/w3css/w3css_templates.asp -->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- I made this stylesheet! -->
+	<link rel="stylesheet" href="./mystyle.css">
+
+<style>
+	td{
+		background-color: lightgrey;
+		width:120px;
+		height:120px;
+		font-size:100px;
+		font-weight:bold;
+		text-align:center;
+	}
+</style>
+
+</head>
+
+<body onload="fixFormFields()">
+    <div class="mainbar">
+        <a class="boxed-link" href="./index.html">Home</a>
+        <a class="boxed-link" href="./tictactoe.html">Tic Tac Toe</a>
+        <a class="boxed-link" href="./rockpaperscissors.html">Rock, Paper, Scissors</a>
+        <a class="boxed-link" href="./commander.html">Commander Decks</a>
+    </div>
+	
+	<h1>Random EDH Deck Generator</h1>
+
+	<form>
+		<input type="radio" id="random" name="gen_type" value="Random" checked>
+		<label for="random">Totally Random</label><br>
+		<input type="radio" id="color" name="gen_type" value="Color">
+		<label for="color">By Color</label><br>
+		<input type="radio" id="commander" name="gen_type" value="Commander">
+		<label for="commander">By Commander</label>
+		
+		<br><br>
+
+		<!-- Hidden Fields -->
+		<div id='colors' style="display:none">
+			<p>Check all colors you want the deck to be (leave unchecked for colorless)</p>
+			<input type="checkbox" id="white" name="white" value="w">
+			<label for="white">White</label><br>
+			<input type="checkbox" id="blue" name="blue" value="u">
+			<label for="blue">Blue</label><br>
+			<input type="checkbox" id="black" name="black" value="b">
+			<label for="black">Black</label><br>
+			<input type="checkbox" id="red" name="red" value="r">
+			<label for="red">Red</label><br>
+			<input type="checkbox" id="green" name="green" value="g">
+			<label for="green">Green</label><br>
+		</div>
+
+		<div id='cmdrs' style="display:none">
+			<label for="cmdr1">First Commander:</label><br>
+			<input type="text" id="cmdr1" name="cmdr1"><br>
+			<label for="cmdr2">Second Commander (optional):</label><br>
+			<input type="text" id="cmdr2" name="cmdr2"><br><br>
+		</div>
+		<br>
+
+		<input id="submit" type="button" value="Submit">
+	</form>
+
+	<pre id="generatedDeck"></pre>
+
+	<script>
+		const byColor = document.querySelector("#color");
+		const random = document.querySelector("#random");
+		const byCmdr = document.querySelector("#commander");
+		const submitBtn = document.querySelector("#submit");
+
+		byColor.addEventListener('change', fixFormFields);
+		random.addEventListener('change', fixFormFields);
+		byCmdr.addEventListener('change', fixFormFields);
+
+		function fixFormFields(){
+			if (document.getElementById("color").checked) {
+				document.getElementById("cmdrs").style.display="none";	
+				document.getElementById("colors").style.display="block";	
+			}
+			else if(document.getElementById("commander").checked) {
+				document.getElementById("cmdrs").style.display="block";	
+				document.getElementById("colors").style.display="none";	
+			}
+			else {
+				document.getElementById("cmdrs").style.display="none";	
+				document.getElementById("colors").style.display="none";
+			}
+		}
+
+		submitBtn.addEventListener("click", async function() {
+
+			//Determine query
+			var query="";
+			if (document.getElementById("random").checked) { query=""; }
+			if (document.getElementById("color").checked) {
+				var qcolors="";
+				if(document.getElementById("white").checked) { qcolors = qcolors+'w'; }
+				if(document.getElementById("blue").checked) { qcolors = qcolors+'u'; }
+				if(document.getElementById("black").checked) { qcolors = qcolors+'b'; }
+				if(document.getElementById("red").checked) { qcolors = qcolors+'r'; }
+				if(document.getElementById("green").checked) { qcolors = qcolors+'g'; }
+				if (!qcolors) { qcolors = 'none'; }
+
+				query = "/colors/" + qcolors;
+			}
+			else if (document.getElementById("commander").checked) {
+				if(!document.getElementById("cmdr1").value) {
+					query = "";
+				}
+				else if(!document.getElementById("cmdr2").value) {
+					query = "/commander/" + encodeURIComponent(document.getElementById("cmdr1").value);
+				}
+				else {
+					query = "/commander/" + encodeURIComponent(document.getElementById("cmdr1").value) 
+											+ "/" + encodeURIComponent(document.getElementById("cmdr2").value);
+				}
+			}
+
+			
+			document.getElementById("generatedDeck").innerHTML = "Generating deck...";
+
+			// Prep API Request, I'm not using the async api since I want to keep this as simple as possible
+				await fetch("http://edh.scott.fail/edh" + query).then(
+					(res) => res.json()
+				).then(res =>{
+					var finalDeck = "Commander:\n";
+					Object.entries(res).forEach(([key, value]) => {
+						if(value['isCMDR']){
+							finalDeck = finalDeck + value['count'] + "x " + key + "\n";
+						}
+				});
+				finalDeck = finalDeck + "\n\n";
+
+				Object.entries(res).forEach(([key, value]) => {
+					if(!value['isCMDR']){
+						finalDeck = finalDeck + value['count'] + 'x ' + key + "\n";
+					}
+				});
+				document.getElementById("generatedDeck").innerHTML = finalDeck;
+
+
+			}).catch(function (err) {
+				console.error(err);
+			});
+
+		})
+
+
+
+	</script>
+</body>
+</html>

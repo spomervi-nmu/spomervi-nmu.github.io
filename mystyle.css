@@ -1,0 +1,73 @@
+body{
+	background-color: #90ee90;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-weight:bold;
+	font-family: "Courier New", "Lucida Console", monospace;
+}
+
+.boxed-link{
+	text-align:center;
+	font-size: large;
+	background-color:lightgrey;
+	border-style: solid;
+	border-width: 4px;
+	border-color: yellow;
+	border-radius: 10px;
+	height: 40px;
+	text-decoration: none;
+	align-items: center;
+	display:flex;
+	justify-content:center;
+	min-width:15%;
+}
+
+.boxed-link:hover{
+	border-width:8px;
+	background-color:darkgrey;
+
+}
+
+.autocenter{
+	margin-right:auto;
+	margin-left:auto;
+}
+
+.mid-flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.centered {
+	text-align: center;
+	width: 50%; /* Or any specific width */
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.mainbar {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	width: 100%;
+	border-top: 2px double black;
+	border-bottom: 2px double black;
+}
+
+.fullpage{
+	width:100%;
+}
+
+.splitdiv{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
